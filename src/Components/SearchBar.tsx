@@ -18,7 +18,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({ setResults }) => {
     fetch("https://jsonplaceholder.typicode.com/users")
       .then((response) => response.json())
       .then((json) => {
-        const results = json.filter((user: { name: string; }) => {
+        const results = json.filter((user: { name: string }) => {
           return (
             value &&
             user &&
@@ -28,6 +28,11 @@ export const SearchBar: React.FC<SearchBarProps> = ({ setResults }) => {
         });
         setResults(results);
       });
+  };
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    handleChange(value);
   };
 
   const handleChange = (value: string) => {
@@ -41,7 +46,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({ setResults }) => {
       <input
         placeholder="Type to search..."
         value={input}
-        onChange={(e) => handleChange(e.target.value)}
+        onChange={handleInputChange}
       />
     </div>
   );
